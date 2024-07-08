@@ -681,9 +681,14 @@
     var Tt = t => {
       if (t) {
         try {
-          let date = new Date(t);
-          if (!isNaN(date)) {
-            return new Date(gr.format(date));
+          // Parse the date string using a specific format
+          let dateParts = t.split(' ');
+          let month = dateParts[0];
+          let day = dateParts[1].replace(',', '');
+          let year = dateParts[2];
+          let parsedDate = new Date(`${month} ${day}, ${year}`);
+          if (!isNaN(parsedDate)) {
+            return new Date(gr.format(parsedDate));
           } else {
             console.error("Invalid date format:", t);
           }
@@ -693,7 +698,10 @@
       }
       return null;
     };
-    
+
+    // Example usage
+    console.log(Tt("July 1, 2024")); // Should work in both Chrome and Safari
+
     var Zt = t => {
         if (t) return parseFloat(t.replace(/[^0-9.-]+/g, ""))
     };
